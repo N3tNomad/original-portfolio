@@ -14,12 +14,11 @@ const projects = [
     tags: ["WordPress", "Construction", "UI/UX"],
   },
   {
-    title: "Digital Bridge Solutions",
+    title: "Tropical Ice cream Poster",
     description:
-      "An innovative website for a digital agency, focused on lead generation and service clarity.",
-    link: "https://digitalbridgesolutions.com",
-    image: "/images/digitalbridge.png",
-    tags: ["Agency", "Marketing", "WordPress"],
+      "An eye-catching ice cream poster for product advertising that has a lasting impression.",
+    image: "/images/ice cream poster1.png",
+    tags: ["Adobe Photoshop", "Adobe illustrator", "Graphic Design"],
   },
 ];
 
