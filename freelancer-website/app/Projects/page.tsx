@@ -104,7 +104,7 @@ export default function ProjectsPage() {
               alt="Full view"
               width={1000}
               height={600}
-              className="rounded-xl shadow-lg mx-auto object-contain max-h-[90vh]"
+              className="rounded-xl shadow-2xl mx-auto object-contain max-h-[90vh] ring-4 ring-purple-400/50"
             />
             <button
               className="absolute top-4 right-4 bg-white text-black px-2 py-1 rounded hover:bg-gray-200"
