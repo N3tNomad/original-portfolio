@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useState } from "react";
 
 const projects = [
   {
@@ -23,6 +24,8 @@ const projects = [
 ];
 
 export default function ProjectsPage() {
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+
   return (
     <section className="max-w-6xl mx-auto px-4 py-16">
       <div className="text-center mb-12">
@@ -36,33 +39,31 @@ export default function ProjectsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project, index) => (
-          <motion.a
+          <motion.div
             key={index}
-            href={project.link || "#"}
-            target={project.link ? "_blank" : "_self"}
-            rel="noopener noreferrer"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="group"
+            className="group cursor-pointer"
           >
-            <Card className="overflow-hidden rounded-2xl shadow-md hover:shadow-purple-500/30 transition-all duration-300 border border-purple-100 group-hover:scale-[1.02]">
-              <div className="relative w-full h-64 bg-white">
+            <Card
+              onClick={() => setLightboxImage(project.image)}
+              className="overflow-hidden rounded-2xl shadow-md hover:shadow-purple-500/30 transition-all duration-300 border border-purple-100 group-hover:scale-[1.02]"
+            >
+              <div className="relative h-56 overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-contain p-4"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
                 />
               </div>
               <CardContent className="p-6">
                 <h2 className="text-xl font-semibold mb-2 group-hover:text-purple-600 transition-colors">
                   {project.title}
                 </h2>
-                <p className="text-sm text-muted-foreground mb-4">
-                  {project.description}
-                </p>
+                <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, i) => (
                     <span
@@ -75,10 +76,9 @@ export default function ProjectsPage() {
                 </div>
               </CardContent>
             </Card>
-          </motion.a>
+          </motion.div>
         ))}
 
-        {/* Optional Card: More Coming Soon */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -92,6 +92,29 @@ export default function ProjectsPage() {
           </Card>
         </motion.div>
       </div>
+
+      {lightboxImage && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+          onClick={() => setLightboxImage(null)}
+        >
+          <div className="relative max-w-3xl w-full mx-4">
+            <Image
+              src={lightboxImage}
+              alt="Full view"
+              width={1000}
+              height={600}
+              className="rounded-xl shadow-lg mx-auto object-contain max-h-[90vh]"
+            />
+            <button
+              className="absolute top-4 right-4 bg-white text-black px-2 py-1 rounded hover:bg-gray-200"
+              onClick={() => setLightboxImage(null)}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
