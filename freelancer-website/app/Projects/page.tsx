@@ -18,7 +18,7 @@ const projects = [
     description:
       "An eye-catching ice cream poster for product advertising that has a lasting impression.",
     image: "/images/ice cream poster1.png",
-    tags: ["Adobe Photoshop", "Adobe illustrator", "Graphic Design"],
+    tags: ["Adobe Photoshop", "Adobe Illustrator", "Graphic Design"],
   },
 ];
 
@@ -38,8 +38,8 @@ export default function ProjectsPage() {
         {projects.map((project, index) => (
           <motion.a
             key={index}
-            href={project.link}
-            target="_blank"
+            href={project.link || "#"}
+            target={project.link ? "_blank" : "_self"}
             rel="noopener noreferrer"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -48,19 +48,21 @@ export default function ProjectsPage() {
             className="group"
           >
             <Card className="overflow-hidden rounded-2xl shadow-md hover:shadow-purple-500/30 transition-all duration-300 border border-purple-100 group-hover:scale-[1.02]">
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative w-full h-64 bg-white">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
+                  className="object-contain p-4"
                 />
               </div>
               <CardContent className="p-6">
                 <h2 className="text-xl font-semibold mb-2 group-hover:text-purple-600 transition-colors">
                   {project.title}
                 </h2>
-                <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {project.description}
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {project.tags.map((tag, i) => (
                     <span
